@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Newsletter Form</title>
+  </head>
+  <body>
+    <form
+      name="newsletter-subscribe"
+      method="POST"
+      action="/netlify-form.html"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+    >
+      <input type="hidden" name="form-name" value="newsletter-subscribe" />
+      <input type="email" name="email" />
+      <input type="text" name="formLocation" />
+      <input type="text" name="submittedAt" />
+      <input type="text" name="path" />
+      <input type="text" name="utm_source" />
+      <input type="text" name="utm_medium" />
+      <input type="text" name="utm_campaign" />
+      <input type="text" name="utm_content" />
+      <input type="text" name="utm_term" />
+      <input type="text" name="bot-field" />
+    </form>
+  </body>
+</html>
