@@ -1,0 +1,62 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+}
+
+const {
+  title,
+  description,
+  path = "/",
+  image = "/og-image.svg",
+} = Astro.props;
+
+const siteUrl = (import.meta.env.PUBLIC_SITE_URL || "https://your-netlify-site.netlify.app").replace(/\/$/, "");
+const canonical = new URL(path, siteUrl).toString();
+const ogImage = new URL(image, siteUrl).toString();
+const subscribeMode = import.meta.env.PUBLIC_SUBSCRIBE_MODE || "netlify";
+const subscribeEndpoint = import.meta.env.PUBLIC_SUBSCRIBE_ENDPOINT || "";
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#7d1f24" />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="빨간펜 연구소 영양가 없는 마케팅 뉴스레터 랜딩 페이지" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <script is:inline>
+      document.documentElement.classList.add("js");
+    </script>
+  </head>
+  <body
+    data-subscribe-mode={subscribeMode}
+    data-subscribe-endpoint={subscribeEndpoint}
+    data-site-url={siteUrl}
+  >
+    <slot />
+  </body>
+</html>

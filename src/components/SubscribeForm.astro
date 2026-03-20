@@ -1,0 +1,65 @@
+---
+interface Props {
+  location: "hero" | "footer";
+  placeholder: string;
+  ctaLabel: string;
+  note: string;
+}
+
+const { location, placeholder, ctaLabel, note } = Astro.props;
+const fieldId = `email-${location}`;
+const honeypotId = `bot-field-${location}`;
+---
+
+<form
+  class:list={["subscribe-form", location === "footer" && "subscribe-form--footer"]}
+  name="newsletter-subscribe"
+  method="POST"
+  action="/"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+  data-subscribe-form
+  data-form-location={location}
+  novalidate
+>
+  <input type="hidden" name="form-name" value="newsletter-subscribe" />
+  <input type="hidden" name="formLocation" value={location} />
+  <input type="hidden" name="submittedAt" value="" />
+  <input type="hidden" name="path" value="" />
+  <input type="hidden" name="utm_source" value="" />
+  <input type="hidden" name="utm_medium" value="" />
+  <input type="hidden" name="utm_campaign" value="" />
+  <input type="hidden" name="utm_content" value="" />
+  <input type="hidden" name="utm_term" value="" />
+
+  <p class="form-honeypot">
+    <label for={honeypotId}>이 필드는 비워두세요.</label>
+    <input
+      id={honeypotId}
+      name="bot-field"
+      type="text"
+      autocomplete="off"
+      tabindex="-1"
+    />
+  </p>
+
+  <div class="subscribe-form__fields" data-form-fields>
+    <div class="subscribe-form__input-wrap">
+      <label for={fieldId} class="sr-only">이메일 주소</label>
+      <input
+        id={fieldId}
+        class="subscribe-form__input"
+        type="email"
+        name="email"
+        inputmode="email"
+        autocomplete="email"
+        placeholder={placeholder}
+        required
+      />
+    </div>
+    <button type="submit" class="subscribe-form__button">{ctaLabel}</button>
+  </div>
+
+  <p class="subscribe-form__note">{note}</p>
+  <p class="subscribe-form__status" data-form-status aria-live="polite"></p>
+</form>

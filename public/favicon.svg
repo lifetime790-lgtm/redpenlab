@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="favicon-title favicon-desc">
+  <title id="favicon-title">빨간펜 연구소 파비콘</title>
+  <desc id="favicon-desc">딥레드 색상의 펜 표시가 있는 원형 파비콘</desc>
+  <rect width="128" height="128" rx="30" fill="#f8efe2" />
+  <path d="M34 88h60" stroke="#241d1a" stroke-width="8" stroke-linecap="round" />
+  <path d="M40 76 82 34l12 12-42 42H40Z" fill="#7d1f24" />
+  <path d="M82 34 94 46" stroke="#fdf8f1" stroke-width="6" stroke-linecap="round" />
+</svg>

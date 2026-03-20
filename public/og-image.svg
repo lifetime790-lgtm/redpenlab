@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="og-title og-desc">
+  <title id="og-title">빨간펜 연구소 영양가 없는 마케팅</title>
+  <desc id="og-desc">건강시장의 말을 해부하는 뉴스레터를 소개하는 에디토리얼 스타일의 오픈그래프 이미지</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fbf6ed" />
+      <stop offset="100%" stop-color="#efe1d1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <circle cx="1030" cy="122" r="210" fill="#7d1f24" fill-opacity="0.08" />
+  <rect x="72" y="72" width="1056" height="486" rx="28" fill="#fffaf3" fill-opacity="0.82" stroke="#2b2523" stroke-opacity="0.12" />
+  <text x="122" y="164" font-family="Georgia, 'Times New Roman', serif" font-size="34" letter-spacing="6" fill="#7d1f24">빨간펜 연구소</text>
+  <text x="122" y="266" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700" fill="#171312">영양가 없는</text>
+  <text x="122" y="356" font-family="Georgia, 'Times New Roman', serif" font-size="78" font-weight="700" fill="#171312">마케팅</text>
+  <text x="122" y="438" font-family="'Arial', sans-serif" font-size="32" fill="#4f4641">건강시장의 말을 해부하는 뉴스레터</text>
+  <path d="M840 430 952 318l54 54-112 112H840Z" fill="#7d1f24" />
+  <path d="M952 318 1006 372" stroke="#fffaf3" stroke-width="12" stroke-linecap="round" />
+  <path d="M820 476h220" stroke="#171312" stroke-width="10" stroke-linecap="round" />
+</svg>

@@ -1,0 +1,236 @@
+---
+import HiddenNetlifyForm from "../components/HiddenNetlifyForm.astro";
+import SubscribeForm from "../components/SubscribeForm.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  audience,
+  brand,
+  categories,
+  faq,
+  finalCta,
+  formCopy,
+  hero,
+  intro,
+  issueStructure,
+  samples,
+  siteMeta,
+} from "../data/landingCopy";
+
+const pageTitle = `${siteMeta.title} | ${brand.studio}`;
+---
+
+<BaseLayout title={pageTitle} description={siteMeta.description} path="/">
+  <HiddenNetlifyForm />
+
+  <main class="page-shell">
+    <section class="section hero" id="top">
+      <div class="container hero__grid">
+        <div class="hero__content">
+          <p class="eyebrow">{hero.eyebrow}</p>
+          <h1 class="hero__title">{hero.headline}</h1>
+          <p class="hero__lead">{hero.subcopy}</p>
+
+          <div class="hero__form panel">
+            <SubscribeForm
+              location="hero"
+              placeholder={formCopy.placeholder}
+              ctaLabel={hero.cta}
+              note={hero.note}
+            />
+          </div>
+        </div>
+
+        <aside class="hero__aside panel panel--accent">
+          <p class="hero__aside-label">Editorial Note</p>
+          <div class="hero__brand-lockup">
+            <span>{brand.studio}</span>
+            <strong>{brand.newsletter}</strong>
+          </div>
+          <p class="hero__aside-copy">{brand.message}</p>
+          <ul class="hero__aside-list">
+            <li>성분, 라벨, 광고 문구를 차분하게 판독합니다.</li>
+            <li>질문을 던지고, 근거와 기준으로 본편을 보냅니다.</li>
+            <li>평일마다 Mini 또는 Full 형식으로 도착합니다.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow">{intro.eyebrow}</p>
+          <h2>{intro.title}</h2>
+          <p>{intro.description}</p>
+        </div>
+
+        <div class="intro-grid">
+          {intro.cards.map((card) => (
+            <article class="panel intro-card">
+              <p class="intro-card__label">{card.label}</p>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--topics" aria-labelledby="topics-title">
+      <div class="container">
+        <div class="section-header section-header--narrow">
+          <p class="eyebrow">무엇을 다루는지</p>
+          <h2 id="topics-title">한 장씩 넘기듯, 다섯 가지 기준을 봅니다.</h2>
+          <p>스크롤을 내릴수록 지금 읽고 있는 기준 하나만 또렷하게 남도록 설계했습니다.</p>
+        </div>
+
+        <div class="topic-focus" data-topic-focus>
+          <div class="topic-stage">
+            <div class="topic-card-stack">
+              {categories.map((item, index) => (
+                <article
+                  class="panel topic-card"
+                  data-topic-card
+                  data-topic-index={index}
+                  data-state={index === 0 ? "current" : "after"}
+                  aria-hidden={index === 0 ? "false" : "true"}
+                >
+                  <p class="topic-card__index">0{index + 1}</p>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div class="topic-steps" aria-hidden="true">
+            {categories.map((item, index) => (
+              <div class="topic-step" data-topic-step data-topic-index={index}>
+                <span class="sr-only">{item.title}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container cadence-grid">
+        <div class="section-header cadence-copy">
+          <p class="eyebrow">{issueStructure.eyebrow}</p>
+          <h2>{issueStructure.title}</h2>
+          <p>{issueStructure.description}</p>
+
+          <div class="cadence-lines panel">
+            {issueStructure.lines.map((line) => (
+              <p>{line}</p>
+            ))}
+          </div>
+        </div>
+
+        <div class="cadence-cards">
+          {issueStructure.modes.map((mode) => (
+            <article class="panel cadence-card">
+              <p class="cadence-card__label">{mode.label}</p>
+              <h3>{mode.title}</h3>
+              <p>{mode.text}</p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header section-header--narrow">
+          <p class="eyebrow">샘플 미리보기</p>
+          <h2>이런 톤의 글이 메일로 도착합니다.</h2>
+          <p>레터 일부를 미리 보는 듯한 카드로, 뉴스레터의 결을 먼저 느낄 수 있게 했습니다.</p>
+        </div>
+
+        <div class="sample-grid">
+          {samples.map((sample) => (
+            <article class="panel sample-card">
+              <p class="sample-card__category">{sample.category}</p>
+              <h3>{sample.title}</h3>
+              <div class="sample-card__body">
+                {sample.preview.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container audience-layout">
+        <div class="section-header section-header--narrow">
+          <p class="eyebrow">{audience.eyebrow}</p>
+          <h2>{audience.title}</h2>
+        </div>
+
+        <div class="audience-grid">
+          {audience.items.map((item) => (
+            <article class="panel audience-card">
+              <p>{item}</p>
+            </article>
+          ))}
+        </div>
+
+        <p class="audience-closing">{audience.closing}</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header section-header--narrow">
+          <p class="eyebrow">FAQ</p>
+          <h2>자주 받게 될 질문을 먼저 답합니다.</h2>
+        </div>
+
+        <div class="faq-list">
+          {faq.map((item) => (
+            <details class="panel faq-item">
+              <summary>{item.question}</summary>
+              <p>{item.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--cta" id="subscribe">
+      <div class="container">
+        <div class="cta-panel panel panel--accent">
+          <div class="section-header section-header--narrow cta-copy">
+            <p class="eyebrow">{finalCta.eyebrow}</p>
+            <h2>{finalCta.title}</h2>
+            <p>{finalCta.description}</p>
+          </div>
+
+          <SubscribeForm
+            location="footer"
+            placeholder={formCopy.placeholder}
+            ctaLabel={hero.cta}
+            note={hero.note}
+          />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p>{brand.studio}</p>
+      <p>{brand.newsletter}</p>
+    </div>
+  </footer>
+
+  <script>
+    import { setupLandingPage } from "../scripts/landing";
+
+    setupLandingPage();
+  </script>
+</BaseLayout>
