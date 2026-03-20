@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">빨간펜 연구소 레드펜 마크</title>
+  <desc id="desc">딥레드 라운드 프레임 안에 돋보기와 체크 표시가 결합된 심벌</desc>
+  <defs>
+    <linearGradient id="redStroke" x1="32" y1="32" x2="224" y2="224" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#a51f2d" />
+      <stop offset="1" stop-color="#7f1822" />
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#8b1d28" flood-opacity="0.16" />
+    </filter>
+  </defs>
+
+  <g filter="url(#softShadow)">
+    <rect
+      x="34"
+      y="34"
+      width="188"
+      height="188"
+      rx="34"
+      fill="none"
+      stroke="url(#redStroke)"
+      stroke-width="14"
+    />
+  </g>
+
+  <circle
+    cx="126"
+    cy="118"
+    r="46"
+    fill="none"
+    stroke="#1b1716"
+    stroke-linecap="round"
+    stroke-width="13"
+    opacity="0.92"
+    stroke-dasharray="224 70"
+    transform="rotate(-22 126 118)"
+  />
+
+  <path
+    d="M160 152l34 34"
+    fill="none"
+    stroke="#1b1716"
+    stroke-linecap="round"
+    stroke-width="13"
+    opacity="0.92"
+  />
+
+  <path
+    d="M192 186c6 6 6 15 0 21s-15 6-21 0"
+    fill="none"
+    stroke="#1b1716"
+    stroke-linecap="round"
+    stroke-width="13"
+    opacity="0.92"
+  />
+
+  <path
+    d="M77 151l25 25c30-52 67-89 108-118-56 17-95 50-125 94L77 151z"
+    fill="url(#redStroke)"
+    stroke="#6f0f18"
+    stroke-linejoin="round"
+    stroke-width="2"
+  />
+</svg>

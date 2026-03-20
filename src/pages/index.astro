@@ -58,10 +58,13 @@ const topicNotes = [
             </div>
 
             <div class="hero-pane">
-              <div class="editor-note">
-                <p class="editor-note__label">Editorial Note</p>
-                <p class="editor-note__brand">{brand.newsletter}</p>
-                <p class="editor-note__text">{brand.message}</p>
+              <div class="mark-card">
+                <img src="/redpen-mark.svg" alt="" class="brand-mark" width="104" height="104" />
+                <div class="editor-note">
+                  <p class="editor-note__label">Red Pen Mark</p>
+                  <p class="editor-note__brand">{brand.newsletter}</p>
+                  <p class="editor-note__text">{brand.message}</p>
+                </div>
               </div>
 
               <div class="form-frame">
@@ -116,28 +119,74 @@ const topicNotes = [
       </div>
     </section>
 
-    {categories.map((item, index) => (
-      <section class="slide" data-panel data-panel-label={item.title}>
-        <div class="container slide__inner">
-          <article class="page-sheet page-sheet--topic">
-            <div class="topic-layout">
-              <div class="topic-copy">
-                <p class="topic-number">0{index + 1}</p>
-                <p class="kicker">무엇을 다루는지</p>
-                <h2 class="section-title">{item.title}</h2>
-                <p class="section-lead">{item.description}</p>
-              </div>
-
-              <div class="topic-aside">
-                <p class="topic-aside__label">읽는 기준</p>
-                <p class="topic-highlight">{topicNotes[index].headline}</p>
-                <p class="topic-detail">{topicNotes[index].body}</p>
-              </div>
+    <section class="slide" data-panel data-panel-label="카테고리">
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--topics">
+          <div class="topics-head">
+            <div class="topics-copy">
+              <p class="kicker">무엇을 다루는지</p>
+              <h2 class="section-title">
+                한 장씩 넘기면
+                <br />
+                기준이 보입니다.
+              </h2>
+              <p class="section-lead">
+                다섯 가지 주제를 한 번에 설명하지 않고, 한 장씩 넘기며 읽는 구조로 정리했습니다.
+              </p>
             </div>
-          </article>
-        </div>
-      </section>
-    ))}
+
+            <div class="topics-status" aria-hidden="true">
+              <span data-topic-current>01</span>
+              <span>/</span>
+              <span>05</span>
+            </div>
+          </div>
+
+          <div class="topics-viewport">
+            <div class="topics-carousel" data-topic-carousel tabindex="0" aria-label="뉴스레터 카테고리">
+              {categories.map((item, index) => (
+                <article class="topic-card" data-topic-card>
+                  <div class="topic-card__number">0{index + 1}</div>
+                  <div class="topic-card__content">
+                    <p class="topic-card__kicker">Category</p>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                  </div>
+                  <div class="topic-card__aside">
+                    <p class="topic-card__label">읽는 기준</p>
+                    <p class="topic-card__headline">{topicNotes[index].headline}</p>
+                    <p class="topic-card__body">{topicNotes[index].body}</p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div class="topics-footer">
+            <div class="topics-dots" aria-label="카테고리 슬라이드 이동">
+              {categories.map((item, index) => (
+                <button
+                  type="button"
+                  class="topics-dot"
+                  data-topic-dot
+                  data-topic-index={index}
+                  aria-label={`${item.title} 보기`}
+                />
+              ))}
+            </div>
+
+            <div class="topics-nav">
+              <button type="button" class="topics-nav__button" data-topic-prev aria-label="이전 카테고리">
+                Prev
+              </button>
+              <button type="button" class="topics-nav__button" data-topic-next aria-label="다음 카테고리">
+                Next
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
     <section class="slide" data-panel data-panel-label="샘플">
       <div class="container slide__inner">
@@ -178,7 +227,10 @@ const topicNotes = [
         <article class="page-sheet page-sheet--cta">
           <div class="cta-layout">
             <div class="cta-copy">
-              <p class="kicker">{finalCta.eyebrow}</p>
+              <div class="cta-markline">
+                <img src="/redpen-mark.svg" alt="" class="cta-mark" width="72" height="72" />
+                <p class="kicker">{finalCta.eyebrow}</p>
+              </div>
               <h2 class="section-title">{finalCta.title}</h2>
               <p class="section-lead">{finalCta.description}</p>
               <p class="page-signoff">{brand.studio} · {brand.newsletter}</p>

@@ -136,6 +136,150 @@ function isEditableTarget(target: EventTarget | null) {
   return target instanceof Element && Boolean(target.closest("input, textarea, select, [contenteditable='true']"));
 }
 
+function initTopicCarousel() {
+  const carousel = document.querySelector<HTMLElement>("[data-topic-carousel]");
+  const cards = Array.from(document.querySelectorAll<HTMLElement>("[data-topic-card]"));
+  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-topic-dot]"));
+  const prevButton = document.querySelector<HTMLButtonElement>("[data-topic-prev]");
+  const nextButton = document.querySelector<HTMLButtonElement>("[data-topic-next]");
+  const current = document.querySelector<HTMLElement>("[data-topic-current]");
+
+  if (!carousel || !cards.length) {
+    return;
+  }
+
+  let activeIndex = 0;
+  let locked = false;
+  let lockTimeout = 0;
+
+  const canUseWheelPaging = () =>
+    window.matchMedia("(min-width: 1024px) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const syncActive = (index: number) => {
+    activeIndex = index;
+
+    if (current) {
+      current.textContent = formatIndex(index);
+    }
+
+    dots.forEach((dot, dotIndex) => {
+      dot.dataset.active = dotIndex === index ? "true" : "false";
+    });
+
+    if (prevButton) {
+      prevButton.disabled = index === 0;
+    }
+
+    if (nextButton) {
+      nextButton.disabled = index === cards.length - 1;
+    }
+  };
+
+  const scrollToCard = (index: number) => {
+    const nextIndex = Math.max(0, Math.min(index, cards.length - 1));
+    carousel.scrollTo({
+      left: cards[nextIndex].offsetLeft,
+      behavior: "smooth",
+    });
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      const visibleEntries = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((left, right) => right.intersectionRatio - left.intersectionRatio);
+
+      if (!visibleEntries.length) {
+        return;
+      }
+
+      const index = cards.indexOf(visibleEntries[0].target as HTMLElement);
+      if (index >= 0) {
+        syncActive(index);
+      }
+    },
+    {
+      root: carousel,
+      threshold: [0.55, 0.72, 0.9],
+    },
+  );
+
+  cards.forEach((card) => observer.observe(card));
+  syncActive(0);
+
+  prevButton?.addEventListener("click", () => scrollToCard(activeIndex - 1));
+  nextButton?.addEventListener("click", () => scrollToCard(activeIndex + 1));
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => scrollToCard(index));
+  });
+
+  carousel.addEventListener(
+    "wheel",
+    (event) => {
+      if (!canUseWheelPaging() || event.ctrlKey || event.metaKey || isEditableTarget(event.target)) {
+        return;
+      }
+
+      const directionSource =
+        Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+
+      if (Math.abs(directionSource) < 18) {
+        return;
+      }
+
+      const nextIndex = activeIndex + (directionSource > 0 ? 1 : -1);
+      if (nextIndex < 0 || nextIndex >= cards.length) {
+        return;
+      }
+
+      event.preventDefault();
+      event.stopPropagation();
+
+      if (locked) {
+        return;
+      }
+
+      locked = true;
+      scrollToCard(nextIndex);
+      window.clearTimeout(lockTimeout);
+      lockTimeout = window.setTimeout(() => {
+        locked = false;
+      }, 700);
+    },
+    { passive: false },
+  );
+
+  carousel.addEventListener("keydown", (event) => {
+    if (isEditableTarget(event.target)) {
+      return;
+    }
+
+    let targetIndex: number | null = null;
+
+    switch (event.key) {
+      case "ArrowRight":
+        targetIndex = activeIndex + 1;
+        break;
+      case "ArrowLeft":
+        targetIndex = activeIndex - 1;
+        break;
+      case "Home":
+        targetIndex = 0;
+        break;
+      case "End":
+        targetIndex = cards.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    event.preventDefault();
+    scrollToCard(targetIndex);
+  });
+}
+
 function initPanelNavigation() {
   const shell = document.querySelector<HTMLElement>("[data-slide-shell]");
   const panels = Array.from(document.querySelectorAll<HTMLElement>("[data-panel]"));
@@ -379,6 +523,7 @@ export function setupLandingPage() {
 
   initialized = true;
 
+  initTopicCarousel();
   initPanelNavigation();
   initSubscribeForms();
   trackEvent("landing_view", {
