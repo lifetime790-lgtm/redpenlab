@@ -154,7 +154,6 @@ function initPanelNavigation() {
   const currentPanel = document.querySelector<HTMLElement>("[data-current-panel]");
   const currentLabel = document.querySelector<HTMLElement>("[data-current-label]");
   const totalPanels = document.querySelectorAll<HTMLElement>("[data-total-panels]");
-  const progressDots = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-progress-dot]"));
   let activeIndex = 0;
   let locked = false;
   let lockTimeout = 0;
@@ -175,10 +174,6 @@ function initPanelNavigation() {
 
     totalPanels.forEach((node) => {
       node.textContent = String(panels.length).padStart(2, "0");
-    });
-
-    progressDots.forEach((dot, dotIndex) => {
-      dot.dataset.active = dotIndex === index ? "true" : "false";
     });
   };
 
@@ -216,9 +211,6 @@ function initPanelNavigation() {
   );
 
   panels.forEach((panel) => observer.observe(panel));
-  progressDots.forEach((dot, index) => {
-    dot.addEventListener("click", () => scrollToPanel(index));
-  });
 
   shell.addEventListener(
     "wheel",
@@ -229,7 +221,7 @@ function initPanelNavigation() {
 
       event.preventDefault();
 
-      if (locked || Math.abs(event.deltaY) < 12) {
+      if (locked || Math.abs(event.deltaY) < 18) {
         return;
       }
 
@@ -243,7 +235,7 @@ function initPanelNavigation() {
       window.clearTimeout(lockTimeout);
       lockTimeout = window.setTimeout(() => {
         locked = false;
-      }, 720);
+      }, 760);
     },
     { passive: false },
   );
@@ -303,8 +295,10 @@ function initSubscribeForms() {
       }
 
       const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+      const nicknameInput = form.querySelector<HTMLInputElement>('input[name="nickname"]');
       const honeypotInput = form.querySelector<HTMLInputElement>('input[name="bot-field"]');
       const formLocation = form.dataset.formLocation || "unknown";
+      const nickname = nicknameInput?.value.trim() || "";
       const email = emailInput?.value.trim() || "";
 
       if (!email) {
@@ -327,6 +321,7 @@ function initSubscribeForms() {
       const utmPayload = getUtmPayload();
       const payload = {
         "form-name": FORM_NAME,
+        nickname,
         email,
         formLocation,
         submittedAt: new Date().toISOString(),

@@ -32,6 +32,7 @@ export const hero = {
   subcopy: "성분, 라벨, 광고 문구를 광고보다 먼저 읽는 기준으로 풀어드립니다.",
   cta: "무료로 받아보기",
   note: "평일마다 짧게 또는 깊게, 건강시장의 말을 해부합니다.",
+  topics: ["성분", "라벨", "광고 문구", "건강 상식", "비교 판정"],
 };
 
 export const intro = {
@@ -78,7 +79,7 @@ export const categories: CategoryItem[] = [
 
 export const issueStructure = {
   eyebrow: "발행 구조",
-  title: "평일마다, 짧게 또는 깊게 보냅니다.",
+  title: "평일마다, Mini 또는 Full로 보냅니다.",
   description:
     "한 번은 짧고 선명하게, 또 한 번은 길고 깊게. 매일 같은 형식이 아니라, 읽어야 할 만큼만 정확하게 보냅니다.",
   lines: [
@@ -151,12 +152,14 @@ export const faq: FaqItem[] = [
 ];
 
 export const finalCta = {
-  eyebrow: "마지막 CTA",
+  eyebrow: "구독",
   title: "이제 건강시장의 말을, 광고보다 먼저 읽어보세요.",
   description: "평일마다 짧게 또는 깊게, 건강시장의 말을 해부합니다.",
 };
 
 export const formCopy = {
+  nicknamePlaceholder: "닉네임 (선택)",
+  nicknameNote: "닉네임은 선택 입력입니다. 본명이 아니어도 괜찮아요.",
   placeholder: "이메일 주소를 입력해주세요",
   success: "구독이 완료됐어요. 이제 건강시장의 말을 메일로 해부해드릴게요.",
   loading: "입력 내용을 확인하고 있어요.",

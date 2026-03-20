@@ -19,9 +19,9 @@ const pageTitle = `${siteMeta.title} | ${brand.studio}`;
 const panelLabels = [
   "Hero",
   intro.eyebrow,
-  ...categories.map((item) => item.title),
   issueStructure.eyebrow,
-  ...samples.map((sample) => sample.title),
+  ...categories.map((item) => item.title),
+  ...samples.map((item) => item.title),
   audience.eyebrow,
   "FAQ",
   "구독",
@@ -52,228 +52,181 @@ const topicNotes = [
 ---
 
 <BaseLayout title={pageTitle} description={siteMeta.description} path="/">
+  <div class="page-counter" aria-hidden="true">
+    <span data-current-panel>01</span>
+    <span>/</span>
+    <span data-total-panels>{totalPanels}</span>
+    <span class="page-counter__label" data-current-label>Hero</span>
+  </div>
+
   <main class="snap-shell" data-slide-shell>
-    <div class="site-mark" aria-hidden="true">
-      <span>{brand.studio}</span>
-      <span>{brand.newsletter}</span>
-    </div>
-
-    <aside class="slide-progress" aria-hidden="true">
-      <p class="slide-progress__count">
-        <span data-current-panel>01</span>
-        <span>/</span>
-        <span data-total-panels>{totalPanels}</span>
-      </p>
-      <p class="slide-progress__label" data-current-label>{panelLabels[0]}</p>
-      <div class="slide-progress__dots">
-        {panelLabels.map((label, index) => (
-          <button
-            type="button"
-            class="slide-progress__dot"
-            data-progress-dot
-            data-progress-index={index}
-            data-progress-label={label}
-            aria-label={`${label} 섹션으로 이동`}
-          />
-        ))}
-      </div>
-    </aside>
-
-    <section class="slide slide--hero" data-panel data-panel-label="Hero" id="top">
-      <div class="container slide__inner hero-layout">
-        <div class="hero-copy">
+    <section class="slide" data-panel data-panel-label="Hero" id="top">
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--hero">
           <p class="kicker">{hero.eyebrow}</p>
           <h1 class="hero-display">
-            <span>건강시장의 말을</span>
-            <span>해부하는 뉴스레터</span>
+            건강시장의 말을
+            <br />
+            해부하는 뉴스레터
           </h1>
           <p class="section-lead hero-lead">{hero.subcopy}</p>
+          <p class="hero-topics">{hero.topics.join(" · ")}</p>
 
-          <div class="sheet hero-sheet">
-            <SubscribeForm
-              location="hero"
-              placeholder={formCopy.placeholder}
-              ctaLabel={hero.cta}
-              note={hero.note}
-            />
-          </div>
-        </div>
+          <SubscribeForm
+            location="hero"
+            nicknamePlaceholder={formCopy.nicknamePlaceholder}
+            placeholder={formCopy.placeholder}
+            ctaLabel={hero.cta}
+            note={formCopy.nicknameNote}
+          />
 
-        <aside class="sheet dossier">
-          <p class="sheet-rubric">Editorial dossier</p>
-          <div class="dossier__brand">
-            <span>{brand.studio}</span>
-            <strong>{brand.newsletter}</strong>
-          </div>
-          <p class="dossier__message">{brand.message}</p>
-          <ul class="dossier__list">
-            <li>성분, 라벨, 광고 문구를 차분하게 판독합니다.</li>
-            <li>질문을 던지고, 근거와 기준으로 본편을 보냅니다.</li>
-            <li>평일마다 Mini 또는 Full 형식으로 도착합니다.</li>
-          </ul>
-        </aside>
+          <p class="page-footnote">{hero.note}</p>
+        </article>
       </div>
-
-      <p class="slide-hint" aria-hidden="true">Scroll to continue</p>
     </section>
 
     <section class="slide" data-panel data-panel-label={intro.eyebrow}>
-      <div class="container slide__inner intro-layout">
-        <div class="section-copy">
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--narrow">
           <p class="kicker">{intro.eyebrow}</p>
-          <h2 class="section-title">{intro.title}</h2>
+          <h2 class="section-title">
+            인스타는 질문을 던지고,
+            <br />
+            뉴스레터는 본편을 보냅니다.
+          </h2>
           <p class="section-lead">{intro.description}</p>
-        </div>
 
-        <div class="comparison-grid">
-          {intro.cards.map((card, index) => (
-            <article class:list={["sheet", "comparison-card", index === 1 && "comparison-card--accent"]}>
-              <p class="comparison-card__label">{card.label}</p>
-              <h3>{card.title}</h3>
-              <p>{card.text}</p>
-            </article>
-          ))}
-        </div>
+          <div class="story-grid">
+            {intro.cards.map((card) => (
+              <article class="story-item">
+                <p class="story-item__label">{card.label}</p>
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </article>
+            ))}
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="slide" data-panel data-panel-label={issueStructure.eyebrow}>
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--narrow">
+          <p class="kicker">{issueStructure.eyebrow}</p>
+          <h2 class="section-title">{issueStructure.title}</h2>
+          <p class="section-lead">{issueStructure.description}</p>
+
+          <div class="cadence-list">
+            {issueStructure.lines.map((line) => (
+              <p>{line}</p>
+            ))}
+          </div>
+
+          <div class="mode-list">
+            {issueStructure.modes.map((mode) => (
+              <article class="mode-item">
+                <p class="mode-item__label">{mode.label}</p>
+                <h3>{mode.title}</h3>
+                <p>{mode.text}</p>
+              </article>
+            ))}
+          </div>
+        </article>
       </div>
     </section>
 
     {categories.map((item, index) => (
-      <section
-        class:list={["slide", "slide--topic", index % 2 === 1 && "slide--topic-alt"]}
-        data-panel
-        data-panel-label={item.title}
-      >
-        <div class="container slide__inner topic-layout">
-          <div class="topic-copy">
-            <p class="topic-count">0{index + 1}</p>
+      <section class="slide" data-panel data-panel-label={item.title}>
+        <div class="container slide__inner">
+          <article class="page-sheet page-sheet--topic">
+            <p class="topic-number">0{index + 1}</p>
             <p class="kicker">무엇을 다루는지</p>
-            <h2 class="section-title topic-title">{item.title}</h2>
+            <h2 class="section-title">{item.title}</h2>
             <p class="section-lead">{item.description}</p>
-          </div>
-
-          <article class="sheet topic-note">
-            <p class="topic-note__label">읽는 기준</p>
-            <h3>{topicNotes[index].headline}</h3>
-            <p>{topicNotes[index].body}</p>
+            <p class="topic-highlight">{topicNotes[index].headline}</p>
+            <p class="topic-detail">{topicNotes[index].body}</p>
           </article>
         </div>
       </section>
     ))}
 
-    <section class="slide" data-panel data-panel-label={issueStructure.eyebrow}>
-      <div class="container slide__inner cadence-layout">
-        <div class="section-copy">
-          <p class="kicker">{issueStructure.eyebrow}</p>
-          <h2 class="section-title">{issueStructure.title}</h2>
-          <p class="section-lead">{issueStructure.description}</p>
-
-          <div class="sheet sheet--accent cadence-lines">
-            {issueStructure.lines.map((line) => (
-              <p>{line}</p>
-            ))}
-          </div>
-        </div>
-
-        <div class="mode-stack">
-          {issueStructure.modes.map((mode) => (
-            <article class="sheet mode-card">
-              <p class="comparison-card__label">{mode.label}</p>
-              <h3>{mode.title}</h3>
-              <p>{mode.text}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
     {samples.map((sample, index) => (
-      <section
-        class:list={["slide", "slide--sample", index === 1 && "slide--sample-alt"]}
-        data-panel
-        data-panel-label={sample.title}
-      >
-        <div class="container slide__inner sample-layout">
-          <div class="section-copy sample-copy">
+      <section class="slide" data-panel data-panel-label={sample.title}>
+        <div class="container slide__inner">
+          <article class="page-sheet page-sheet--sample">
             <p class="kicker">샘플 미리보기</p>
-            <h2 class="section-title">{sample.title}</h2>
-            <p class="section-lead">{sample.category}</p>
-          </div>
-
-          <article class="sheet letter-card">
-            <header class="letter-card__header">
-              <span>{brand.studio}</span>
+            <div class="sample-meta">
               <span>{sample.category}</span>
-            </header>
-            <div class="letter-card__body">
+              <span>Preview 0{index + 1}</span>
+            </div>
+            <h2 class="section-title">{sample.title}</h2>
+            <div class="sample-body">
               {sample.preview.map((paragraph) => (
                 <p>{paragraph}</p>
               ))}
             </div>
-            <footer class="letter-card__footer">
-              <span>{brand.newsletter}</span>
-              <span>Preview 0{index + 1}</span>
-            </footer>
           </article>
         </div>
       </section>
     ))}
 
     <section class="slide" data-panel data-panel-label={audience.eyebrow}>
-      <div class="container slide__inner audience-layout">
-        <div class="section-copy">
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--narrow">
           <p class="kicker">{audience.eyebrow}</p>
           <h2 class="section-title">{audience.title}</h2>
-        </div>
+          <p class="section-lead">이 뉴스레터는 제품을 추천하기보다, 스스로 읽는 기준을 세우고 싶은 사람에게 맞습니다.</p>
 
-        <div class="sheet audience-sheet">
-          {audience.items.map((item, index) => (
-            <article class="audience-point">
-              <span>0{index + 1}</span>
-              <p>{item}</p>
-            </article>
-          ))}
+          <div class="audience-list">
+            {audience.items.map((item, index) => (
+              <p class="audience-item">
+                <span>0{index + 1}</span>
+                <span>{item}</span>
+              </p>
+            ))}
+          </div>
+
           <p class="audience-closing">{audience.closing}</p>
-        </div>
+        </article>
       </div>
     </section>
 
     <section class="slide" data-panel data-panel-label="FAQ">
-      <div class="container slide__inner faq-layout">
-        <div class="section-copy">
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--faq">
           <p class="kicker">FAQ</p>
-          <h2 class="section-title">자주 받게 될 질문을 먼저 답합니다.</h2>
-        </div>
+          <h2 class="section-title">먼저 답해둘게요.</h2>
+          <p class="section-lead">닉네임은 선택 입력입니다. 본명 대신 편한 이름을 적어도 괜찮습니다.</p>
 
-        <div class="faq-grid">
-          {faq.map((item) => (
-            <article class="sheet faq-card">
-              <p class="faq-card__question">{item.question}</p>
-              <p>{item.answer}</p>
-            </article>
-          ))}
-        </div>
+          <div class="faq-stack">
+            {faq.map((item) => (
+              <article class="faq-row">
+                <p class="faq-row__question">{item.question}</p>
+                <p class="faq-row__answer">{item.answer}</p>
+              </article>
+            ))}
+          </div>
+        </article>
       </div>
     </section>
 
-    <section class="slide slide--cta" data-panel data-panel-label="구독" id="subscribe">
-      <div class="container slide__inner cta-layout">
-        <div class="sheet cta-sheet">
+    <section class="slide" data-panel data-panel-label="구독" id="subscribe">
+      <div class="container slide__inner">
+        <article class="page-sheet page-sheet--hero">
           <p class="kicker">{finalCta.eyebrow}</p>
           <h2 class="section-title">{finalCta.title}</h2>
           <p class="section-lead">{finalCta.description}</p>
 
           <SubscribeForm
             location="footer"
+            nicknamePlaceholder={formCopy.nicknamePlaceholder}
             placeholder={formCopy.placeholder}
             ctaLabel={hero.cta}
-            note={hero.note}
+            note={formCopy.nicknameNote}
           />
 
-          <div class="cta-sheet__footer">
-            <span>{brand.studio}</span>
-            <span>{brand.newsletter}</span>
-          </div>
-        </div>
+          <p class="page-signoff">{brand.studio} · {brand.newsletter}</p>
+        </article>
       </div>
     </section>
   </main>

@@ -1,12 +1,14 @@
 ---
 interface Props {
   location: "hero" | "footer";
+  nicknamePlaceholder: string;
   placeholder: string;
   ctaLabel: string;
   note: string;
 }
 
-const { location, placeholder, ctaLabel, note } = Astro.props;
+const { location, nicknamePlaceholder, placeholder, ctaLabel, note } = Astro.props;
+const nicknameId = `nickname-${location}`;
 const fieldId = `email-${location}`;
 const honeypotId = `bot-field-${location}`;
 ---
@@ -43,8 +45,20 @@ const honeypotId = `bot-field-${location}`;
     />
   </p>
 
-  <div class="subscribe-form__fields" data-form-fields>
-    <div class="subscribe-form__input-wrap">
+  <div class="subscribe-form__row" data-form-fields>
+    <div class="subscribe-form__field">
+      <label for={nicknameId} class="sr-only">닉네임</label>
+      <input
+        id={nicknameId}
+        class="subscribe-form__input"
+        type="text"
+        name="nickname"
+        autocomplete="nickname"
+        placeholder={nicknamePlaceholder}
+      />
+    </div>
+
+    <div class="subscribe-form__field">
       <label for={fieldId} class="sr-only">이메일 주소</label>
       <input
         id={fieldId}
@@ -57,6 +71,7 @@ const honeypotId = `bot-field-${location}`;
         required
       />
     </div>
+
     <button type="submit" class="subscribe-form__button">{ctaLabel}</button>
   </div>
 
