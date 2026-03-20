@@ -4,7 +4,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import {
   brand,
   categories,
-  faq,
   finalCta,
   formCopy,
   hero,
@@ -16,7 +15,6 @@ import {
 
 const pageTitle = `${siteMeta.title} | ${brand.studio}`;
 const primarySample = samples[0];
-const compactFaq = faq.slice(0, 3);
 const topicNotes = [
   {
     headline: "익숙한 이름보다 실제 조건을 먼저 씁니다.",
@@ -83,23 +81,27 @@ const topicNotes = [
 
     <section class="slide" data-panel data-panel-label={intro.eyebrow}>
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--narrow">
-          <p class="kicker">{intro.eyebrow}</p>
-          <h2 class="section-title">
-            인스타는 질문을 던지고,
-            <br />
-            뉴스레터는 본편을 보냅니다.
-          </h2>
-          <p class="section-lead">{intro.description}</p>
+        <article class="page-sheet page-sheet--intro">
+          <div class="intro-layout">
+            <div class="intro-copy">
+              <p class="kicker">{intro.eyebrow}</p>
+              <h2 class="section-title">
+                질문은 피드에,
+                <br />
+                기준은 메일에 남깁니다.
+              </h2>
+              <p class="section-lead">{intro.description}</p>
+            </div>
 
-          <div class="story-grid">
-            {intro.cards.map((card) => (
-              <article class="story-item">
-                <p class="story-item__label">{card.label}</p>
-                <h3>{card.title}</h3>
-                <p>{card.text}</p>
-              </article>
-            ))}
+            <div class="intro-panels">
+              {intro.cards.map((card) => (
+                <article class="story-item">
+                  <p class="story-item__label">{card.label}</p>
+                  <h3>{card.title}</h3>
+                  <p>{card.text}</p>
+                </article>
+              ))}
+            </div>
           </div>
 
           <div class="intro-cadence">
@@ -140,38 +142,32 @@ const topicNotes = [
     <section class="slide" data-panel data-panel-label="샘플">
       <div class="container slide__inner">
         <article class="page-sheet page-sheet--sample">
-          <div class="sample-sheet">
-            <p class="kicker">샘플 미리보기</p>
-            <div class="sample-meta">
-              <span>{primarySample.category}</span>
-              <span>Preview 01</span>
+          <div class="sample-layout">
+            <div class="sample-copy">
+              <p class="kicker">샘플 미리보기</p>
+              <h2 class="section-title">
+                실제 메일은
+                <br />
+                이런 톤으로 옵니다.
+              </h2>
+              <p class="section-lead">
+                문장을 길게 포장하기보다, 표현 하나를 다시 보게 만드는 방식으로 씁니다.
+              </p>
             </div>
-            <h2 class="section-title">{primarySample.title}</h2>
-            <div class="sample-body">
-              {primarySample.preview.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
+
+            <div class="sample-sheet">
+              <div class="sample-meta">
+                <span>{primarySample.category}</span>
+                <span>Preview 01</span>
+              </div>
+              <h2 class="section-title">{primarySample.title}</h2>
+              <div class="sample-body">
+                {primarySample.preview.map((paragraph) => (
+                  <p>{paragraph}</p>
+                ))}
+              </div>
+              <p class="sample-signoff">{brand.newsletter} preview</p>
             </div>
-            <p class="sample-signoff">{brand.newsletter} preview</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section class="slide" data-panel data-panel-label="FAQ">
-      <div class="container slide__inner">
-        <article class="page-sheet page-sheet--faq">
-          <p class="kicker">FAQ</p>
-          <h2 class="section-title">먼저 답해둘게요.</h2>
-          <p class="section-lead">제품 추천보다 읽는 기준을 보내는 뉴스레터입니다.</p>
-
-          <div class="faq-stack">
-            {compactFaq.map((item) => (
-              <article class="faq-row">
-                <p class="faq-row__question">{item.question}</p>
-                <p class="faq-row__answer">{item.answer}</p>
-              </article>
-            ))}
           </div>
         </article>
       </div>
