@@ -2,7 +2,6 @@
 import SubscribeForm from "../components/SubscribeForm.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
-  audience,
   brand,
   categories,
   faq,
@@ -16,17 +15,8 @@ import {
 } from "../data/landingCopy";
 
 const pageTitle = `${siteMeta.title} | ${brand.studio}`;
-const panelLabels = [
-  "Hero",
-  intro.eyebrow,
-  issueStructure.eyebrow,
-  ...categories.map((item) => item.title),
-  ...samples.map((item) => item.title),
-  audience.eyebrow,
-  "FAQ",
-  "구독",
-];
-const totalPanels = String(panelLabels.length).padStart(2, "0");
+const primarySample = samples[0];
+const compactFaq = faq.slice(0, 3);
 const topicNotes = [
   {
     headline: "익숙한 이름보다 실제 조건을 먼저 씁니다.",
@@ -52,13 +42,6 @@ const topicNotes = [
 ---
 
 <BaseLayout title={pageTitle} description={siteMeta.description} path="/">
-  <div class="page-counter" aria-hidden="true">
-    <span data-current-panel>01</span>
-    <span>/</span>
-    <span data-total-panels>{totalPanels}</span>
-    <span class="page-counter__label" data-current-label>Hero</span>
-  </div>
-
   <main class="snap-shell" data-slide-shell>
     <section class="slide" data-panel data-panel-label="Hero" id="top">
       <div class="container slide__inner">
@@ -105,31 +88,14 @@ const topicNotes = [
               </article>
             ))}
           </div>
-        </article>
-      </div>
-    </section>
 
-    <section class="slide" data-panel data-panel-label={issueStructure.eyebrow}>
-      <div class="container slide__inner">
-        <article class="page-sheet page-sheet--narrow">
-          <p class="kicker">{issueStructure.eyebrow}</p>
-          <h2 class="section-title">{issueStructure.title}</h2>
-          <p class="section-lead">{issueStructure.description}</p>
-
-          <div class="cadence-list">
-            {issueStructure.lines.map((line) => (
-              <p>{line}</p>
-            ))}
-          </div>
-
-          <div class="mode-list">
-            {issueStructure.modes.map((mode) => (
-              <article class="mode-item">
-                <p class="mode-item__label">{mode.label}</p>
-                <h3>{mode.title}</h3>
-                <p>{mode.text}</p>
-              </article>
-            ))}
+          <div class="intro-cadence">
+            <p class="intro-cadence__lead">평일마다 Mini 또는 Full로 도착합니다.</p>
+            <div class="intro-cadence__modes">
+              {issueStructure.modes.map((mode) => (
+                <span>{mode.label} · {mode.title}</span>
+              ))}
+            </div>
           </div>
         </article>
       </div>
@@ -150,43 +116,20 @@ const topicNotes = [
       </section>
     ))}
 
-    {samples.map((sample, index) => (
-      <section class="slide" data-panel data-panel-label={sample.title}>
-        <div class="container slide__inner">
-          <article class="page-sheet page-sheet--sample">
-            <p class="kicker">샘플 미리보기</p>
-            <div class="sample-meta">
-              <span>{sample.category}</span>
-              <span>Preview 0{index + 1}</span>
-            </div>
-            <h2 class="section-title">{sample.title}</h2>
-            <div class="sample-body">
-              {sample.preview.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-            </div>
-          </article>
-        </div>
-      </section>
-    ))}
-
-    <section class="slide" data-panel data-panel-label={audience.eyebrow}>
+    <section class="slide" data-panel data-panel-label="샘플">
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--narrow">
-          <p class="kicker">{audience.eyebrow}</p>
-          <h2 class="section-title">{audience.title}</h2>
-          <p class="section-lead">이 뉴스레터는 제품을 추천하기보다, 스스로 읽는 기준을 세우고 싶은 사람에게 맞습니다.</p>
-
-          <div class="audience-list">
-            {audience.items.map((item, index) => (
-              <p class="audience-item">
-                <span>0{index + 1}</span>
-                <span>{item}</span>
-              </p>
+        <article class="page-sheet page-sheet--sample">
+          <p class="kicker">샘플 미리보기</p>
+          <div class="sample-meta">
+            <span>{primarySample.category}</span>
+            <span>Preview 01</span>
+          </div>
+          <h2 class="section-title">{primarySample.title}</h2>
+          <div class="sample-body">
+            {primarySample.preview.map((paragraph) => (
+              <p>{paragraph}</p>
             ))}
           </div>
-
-          <p class="audience-closing">{audience.closing}</p>
         </article>
       </div>
     </section>
@@ -196,10 +139,10 @@ const topicNotes = [
         <article class="page-sheet page-sheet--faq">
           <p class="kicker">FAQ</p>
           <h2 class="section-title">먼저 답해둘게요.</h2>
-          <p class="section-lead">닉네임은 선택 입력입니다. 본명 대신 편한 이름을 적어도 괜찮습니다.</p>
+          <p class="section-lead">제품 추천보다 읽는 기준을 보내는 뉴스레터입니다.</p>
 
           <div class="faq-stack">
-            {faq.map((item) => (
+            {compactFaq.map((item) => (
               <article class="faq-row">
                 <p class="faq-row__question">{item.question}</p>
                 <p class="faq-row__answer">{item.answer}</p>

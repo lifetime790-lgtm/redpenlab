@@ -128,13 +128,6 @@ async function submitViaEndpoint(payload: Record<string, string>, endpoint: stri
   }
 }
 
-function markAllFormsAsSuccess(message: string) {
-  const forms = document.querySelectorAll<HTMLFormElement>("[data-subscribe-form]");
-  forms.forEach((form) => {
-    setFormState(form, "success", message);
-  });
-}
-
 function formatIndex(index: number) {
   return String(index + 1).padStart(2, "0");
 }
@@ -282,9 +275,7 @@ function initSubscribeForms() {
     return;
   }
 
-  if (window.sessionStorage.getItem("redpen:subscribed") === "true") {
-    markAllFormsAsSuccess(SUCCESS_MESSAGE);
-  }
+  window.sessionStorage.removeItem("redpen:subscribed");
 
   forms.forEach((form) => {
     form.addEventListener("submit", async (event) => {
@@ -348,8 +339,7 @@ function initSubscribeForms() {
           await submitViaNetlify(payload);
         }
 
-        window.sessionStorage.setItem("redpen:subscribed", "true");
-        markAllFormsAsSuccess(SUCCESS_MESSAGE);
+        setFormState(form, "success", SUCCESS_MESSAGE);
         trackEvent("subscribe_success", {
           formLocation,
           path: window.location.pathname,
