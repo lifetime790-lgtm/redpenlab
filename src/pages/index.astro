@@ -46,24 +46,37 @@ const topicNotes = [
     <section class="slide" data-panel data-panel-label="Hero" id="top">
       <div class="container slide__inner">
         <article class="page-sheet page-sheet--hero">
-          <p class="kicker">{hero.eyebrow}</p>
-          <h1 class="hero-display">
-            건강시장의 말을
-            <br />
-            해부하는 뉴스레터
-          </h1>
-          <p class="section-lead hero-lead">{hero.subcopy}</p>
-          <p class="hero-topics">{hero.topics.join(" · ")}</p>
+          <div class="hero-layout">
+            <div class="hero-copy">
+              <p class="kicker">{hero.eyebrow}</p>
+              <h1 class="hero-display">
+                건강시장의 말을
+                <br />
+                해부하는 뉴스레터
+              </h1>
+              <p class="section-lead hero-lead">{hero.subcopy}</p>
+              <p class="hero-topics">{hero.topics.join(" · ")}</p>
+              <p class="page-footnote">{hero.note}</p>
+            </div>
 
-          <SubscribeForm
-            location="hero"
-            nicknamePlaceholder={formCopy.nicknamePlaceholder}
-            placeholder={formCopy.placeholder}
-            ctaLabel={hero.cta}
-            note={formCopy.nicknameNote}
-          />
+            <div class="hero-pane">
+              <div class="editor-note">
+                <p class="editor-note__label">Editorial Note</p>
+                <p class="editor-note__brand">{brand.newsletter}</p>
+                <p class="editor-note__text">{brand.message}</p>
+              </div>
 
-          <p class="page-footnote">{hero.note}</p>
+              <div class="form-frame">
+                <SubscribeForm
+                  location="hero"
+                  nicknamePlaceholder={formCopy.nicknamePlaceholder}
+                  placeholder={formCopy.placeholder}
+                  ctaLabel={hero.cta}
+                  note={formCopy.nicknameNote}
+                />
+              </div>
+            </div>
+          </div>
         </article>
       </div>
     </section>
@@ -105,12 +118,20 @@ const topicNotes = [
       <section class="slide" data-panel data-panel-label={item.title}>
         <div class="container slide__inner">
           <article class="page-sheet page-sheet--topic">
-            <p class="topic-number">0{index + 1}</p>
-            <p class="kicker">무엇을 다루는지</p>
-            <h2 class="section-title">{item.title}</h2>
-            <p class="section-lead">{item.description}</p>
-            <p class="topic-highlight">{topicNotes[index].headline}</p>
-            <p class="topic-detail">{topicNotes[index].body}</p>
+            <div class="topic-layout">
+              <div class="topic-copy">
+                <p class="topic-number">0{index + 1}</p>
+                <p class="kicker">무엇을 다루는지</p>
+                <h2 class="section-title">{item.title}</h2>
+                <p class="section-lead">{item.description}</p>
+              </div>
+
+              <div class="topic-aside">
+                <p class="topic-aside__label">읽는 기준</p>
+                <p class="topic-highlight">{topicNotes[index].headline}</p>
+                <p class="topic-detail">{topicNotes[index].body}</p>
+              </div>
+            </div>
           </article>
         </div>
       </section>
@@ -119,16 +140,19 @@ const topicNotes = [
     <section class="slide" data-panel data-panel-label="샘플">
       <div class="container slide__inner">
         <article class="page-sheet page-sheet--sample">
-          <p class="kicker">샘플 미리보기</p>
-          <div class="sample-meta">
-            <span>{primarySample.category}</span>
-            <span>Preview 01</span>
-          </div>
-          <h2 class="section-title">{primarySample.title}</h2>
-          <div class="sample-body">
-            {primarySample.preview.map((paragraph) => (
-              <p>{paragraph}</p>
-            ))}
+          <div class="sample-sheet">
+            <p class="kicker">샘플 미리보기</p>
+            <div class="sample-meta">
+              <span>{primarySample.category}</span>
+              <span>Preview 01</span>
+            </div>
+            <h2 class="section-title">{primarySample.title}</h2>
+            <div class="sample-body">
+              {primarySample.preview.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+            </div>
+            <p class="sample-signoff">{brand.newsletter} preview</p>
           </div>
         </article>
       </div>
@@ -155,20 +179,25 @@ const topicNotes = [
 
     <section class="slide" data-panel data-panel-label="구독" id="subscribe">
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--hero">
-          <p class="kicker">{finalCta.eyebrow}</p>
-          <h2 class="section-title">{finalCta.title}</h2>
-          <p class="section-lead">{finalCta.description}</p>
+        <article class="page-sheet page-sheet--cta">
+          <div class="cta-layout">
+            <div class="cta-copy">
+              <p class="kicker">{finalCta.eyebrow}</p>
+              <h2 class="section-title">{finalCta.title}</h2>
+              <p class="section-lead">{finalCta.description}</p>
+              <p class="page-signoff">{brand.studio} · {brand.newsletter}</p>
+            </div>
 
-          <SubscribeForm
-            location="footer"
-            nicknamePlaceholder={formCopy.nicknamePlaceholder}
-            placeholder={formCopy.placeholder}
-            ctaLabel={hero.cta}
-            note={formCopy.nicknameNote}
-          />
-
-          <p class="page-signoff">{brand.studio} · {brand.newsletter}</p>
+            <div class="form-frame form-frame--cta">
+              <SubscribeForm
+                location="footer"
+                nicknamePlaceholder={formCopy.nicknamePlaceholder}
+                placeholder={formCopy.placeholder}
+                ctaLabel={hero.cta}
+                note={formCopy.nicknameNote}
+              />
+            </div>
+          </div>
         </article>
       </div>
     </section>
