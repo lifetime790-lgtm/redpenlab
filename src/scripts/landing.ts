@@ -159,6 +159,10 @@ function initTopicCarousel() {
   const syncActive = (index: number) => {
     activeIndex = index;
 
+    cards.forEach((card, cardIndex) => {
+      card.dataset.active = cardIndex === index ? "true" : "false";
+    });
+
     if (current) {
       current.textContent = formatIndex(index);
     }

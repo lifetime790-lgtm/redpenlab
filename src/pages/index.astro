@@ -8,7 +8,6 @@ import {
   formCopy,
   hero,
   intro,
-  issueStructure,
   samples,
   siteMeta,
 } from "../data/landingCopy";
@@ -41,62 +40,44 @@ const topicNotes = [
 
 <BaseLayout title={pageTitle} description={siteMeta.description} path="/">
   <main class="snap-shell" data-slide-shell>
-    <section class="slide" data-panel data-panel-label="Hero" id="top">
-      <div class="container slide__inner">
-        <article class="page-sheet page-sheet--hero">
-          <div class="hero-layout">
-            <div class="hero-copy">
-              <p class="kicker">{hero.eyebrow}</p>
-              <h1 class="hero-display">
-                건강시장의 말을
-                <br />
-                해부하는 뉴스레터
-              </h1>
-              <p class="section-lead hero-lead">{hero.subcopy}</p>
-              <p class="hero-topics">{hero.topics.join(" · ")}</p>
-              <p class="page-footnote">{hero.note}</p>
-            </div>
+    <section class="slide slide--hero" data-panel data-panel-label="Hero" id="top">
+      <div class="hero-stage">
+        <div class="hero-stage__mark" aria-hidden="true">
+          <img src="/redpen-mark.svg" alt="" class="hero-stage__mark-image" width="520" height="520" />
+        </div>
 
-            <div class="hero-pane">
-              <div class="mark-card">
-                <img src="/redpen-mark.svg" alt="" class="brand-mark" width="104" height="104" />
-                <div class="editor-note">
-                  <p class="editor-note__label">Red Pen Mark</p>
-                  <p class="editor-note__brand">{brand.newsletter}</p>
-                  <p class="editor-note__text">{brand.message}</p>
-                </div>
-              </div>
+        <div class="hero-stage__content container">
+          <p class="hero-brand">{brand.studio}</p>
+          <h1 class="hero-product">{brand.newsletter}</h1>
+          <p class="hero-display">{hero.headline}</p>
+          <p class="section-lead hero-lead">{hero.subcopy}</p>
 
-              <div class="form-frame">
-                <SubscribeForm
-                  location="hero"
-                  nicknamePlaceholder={formCopy.nicknamePlaceholder}
-                  placeholder={formCopy.placeholder}
-                  ctaLabel={hero.cta}
-                  note={formCopy.nicknameNote}
-                />
-              </div>
-            </div>
+          <div class="hero-form">
+            <SubscribeForm
+              location="hero"
+              nicknamePlaceholder={formCopy.nicknamePlaceholder}
+              placeholder={formCopy.placeholder}
+              ctaLabel={hero.cta}
+              note={formCopy.nicknameNote}
+            />
           </div>
-        </article>
+
+          <p class="page-footnote">{hero.note}</p>
+        </div>
       </div>
     </section>
 
     <section class="slide" data-panel data-panel-label={intro.eyebrow}>
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--intro">
+        <section class="support-section">
+          <p class="kicker">{intro.eyebrow}</p>
           <div class="intro-layout">
             <div class="intro-copy">
-              <p class="kicker">{intro.eyebrow}</p>
-              <h2 class="section-title">
-                질문은 피드에,
-                <br />
-                기준은 메일에 남깁니다.
-              </h2>
+              <h2 class="section-title">{intro.title}</h2>
               <p class="section-lead">{intro.description}</p>
             </div>
 
-            <div class="intro-panels">
+            <div class="support-story">
               {intro.cards.map((card) => (
                 <article class="story-item">
                   <p class="story-item__label">{card.label}</p>
@@ -107,31 +88,24 @@ const topicNotes = [
             </div>
           </div>
 
-          <div class="intro-cadence">
-            <p class="intro-cadence__lead">평일마다 Mini 또는 Full로 도착합니다.</p>
-            <div class="intro-cadence__modes">
-              {issueStructure.modes.map((mode) => (
-                <span>{mode.label} · {mode.title}</span>
-              ))}
-            </div>
-          </div>
-        </article>
+          <p class="support-note">평일마다 Mini 또는 Full로, 짧게 또는 깊게 도착합니다.</p>
+        </section>
       </div>
     </section>
 
     <section class="slide" data-panel data-panel-label="카테고리">
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--topics">
+        <article class="topics-stage">
           <div class="topics-head">
             <div class="topics-copy">
               <p class="kicker">무엇을 다루는지</p>
               <h2 class="section-title">
-                한 장씩 넘기면
+                무엇을 읽어낼지,
                 <br />
-                기준이 보입니다.
+                옆으로 넘기며 봅니다.
               </h2>
               <p class="section-lead">
-                다섯 가지 주제를 한 번에 설명하지 않고, 한 장씩 넘기며 읽는 구조로 정리했습니다.
+                성분, 라벨, 광고 문구를 다섯 가지 기준으로 다시 읽습니다.
               </p>
             </div>
 
@@ -177,10 +151,10 @@ const topicNotes = [
 
             <div class="topics-nav">
               <button type="button" class="topics-nav__button" data-topic-prev aria-label="이전 카테고리">
-                Prev
+                <span aria-hidden="true">←</span>
               </button>
               <button type="button" class="topics-nav__button" data-topic-next aria-label="다음 카테고리">
-                Next
+                <span aria-hidden="true">→</span>
               </button>
             </div>
           </div>
@@ -190,17 +164,13 @@ const topicNotes = [
 
     <section class="slide" data-panel data-panel-label="샘플">
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--sample">
+        <article class="sample-stage">
           <div class="sample-layout">
             <div class="sample-copy">
               <p class="kicker">샘플 미리보기</p>
-              <h2 class="section-title">
-                실제 메일은
-                <br />
-                이런 톤으로 옵니다.
-              </h2>
+              <h2 class="section-title">실제 메일은 이런 문장으로 도착합니다.</h2>
               <p class="section-lead">
-                문장을 길게 포장하기보다, 표현 하나를 다시 보게 만드는 방식으로 씁니다.
+                길게 포장하기보다, 표현 하나를 다시 보게 만드는 방식으로 씁니다.
               </p>
             </div>
 
@@ -224,7 +194,7 @@ const topicNotes = [
 
     <section class="slide" data-panel data-panel-label="구독" id="subscribe">
       <div class="container slide__inner">
-        <article class="page-sheet page-sheet--cta">
+        <article class="cta-stage">
           <div class="cta-layout">
             <div class="cta-copy">
               <div class="cta-markline">
