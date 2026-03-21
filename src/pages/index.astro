@@ -65,15 +65,8 @@ const topicNotes = [
     <section class="slide" data-panel data-panel-label={intro.eyebrow}>
       <div class="container slide__inner">
         <section class="support-section">
-          <p class="kicker">읽는 방식</p>
-          <div class="support-strip">
-            {intro.cards.map((card) => (
-              <article class="support-strip__item">
-                <p class="story-item__label">{card.label}</p>
-                <h2>{card.title}</h2>
-              </article>
-            ))}
-          </div>
+          <p class="kicker">Instagram / Newsletter</p>
+          <h2 class="support-statement">질문은 피드에. 본편은 메일에.</h2>
         </section>
       </div>
     </section>
@@ -149,7 +142,6 @@ const topicNotes = [
             <div class="sample-sheet">
               <div class="sample-meta">
                 <span>{primarySample.category}</span>
-                <span>Preview 01</span>
               </div>
               <h2 class="section-title">{primarySample.title}</h2>
               <div class="sample-body">
@@ -157,7 +149,6 @@ const topicNotes = [
                   <p>{paragraph}</p>
                 ))}
               </div>
-              <p class="sample-signoff">{brand.newsletter} preview</p>
             </div>
           </div>
         </article>
