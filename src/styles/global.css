@@ -131,8 +131,6 @@ button {
 
 .kicker,
 .story-item__label,
-.topic-card__kicker,
-.topic-card__label,
 .sample-signoff {
   margin: 0;
   font-size: 0.76rem;
@@ -142,7 +140,6 @@ button {
 }
 
 .section-title,
-.story-item h3,
 .topic-card h3,
 .sample-sheet h2,
 .hero-product {
@@ -161,12 +158,8 @@ button {
 }
 
 .section-lead,
-.page-footnote,
-.story-item p,
 .topic-card p,
-.sample-body p,
-.page-signoff,
-.support-note {
+.sample-body p {
   margin: 0;
   color: var(--muted);
 }
@@ -241,9 +234,12 @@ button {
   margin-top: 0.55rem;
 }
 
-.page-footnote {
-  max-width: 24rem;
-  font-size: 0.94rem;
+.hero-meta {
+  margin: 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .support-section,
@@ -255,19 +251,17 @@ button {
 
 .support-section {
   display: grid;
-  gap: 1.5rem;
-  padding-block: 1.4rem;
+  gap: 1rem;
+  padding-block: 1.15rem;
   border-block: 1px solid var(--line-strong);
 }
 
-.intro-layout,
 .sample-layout,
 .cta-layout {
   display: grid;
   gap: 1.4rem;
 }
 
-.intro-copy,
 .sample-copy,
 .cta-copy,
 .topics-copy {
@@ -275,48 +269,44 @@ button {
   gap: 0.75rem;
 }
 
-.intro-copy .section-title,
 .sample-copy .section-title,
 .cta-copy .section-title {
   max-width: 14ch;
 }
 
-.support-story {
+.support-strip {
   display: grid;
+  gap: 0.85rem;
 }
 
-.story-item {
+.support-strip__item {
   display: grid;
-  gap: 0.38rem;
-  padding: 1rem 0;
+  gap: 0.22rem;
+  padding: 0.9rem 0;
   border-top: 1px solid var(--line);
 }
 
-.story-item:first-child {
+.support-strip__item:first-child {
   padding-top: 0;
   border-top: 0;
 }
 
-.story-item:last-child {
+.support-strip__item:last-child {
   padding-bottom: 0;
 }
 
-.story-item h3 {
-  font-size: clamp(1.45rem, 4vw, 2rem);
-  line-height: 1.06;
-}
-
-.support-note {
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.9rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+.support-strip__item h2 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 4.6vw, 2.8rem);
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  color: var(--charcoal);
 }
 
 .topics-stage {
   display: grid;
-  gap: 1.35rem;
+  gap: 1.1rem;
 }
 
 .topics-head {
@@ -361,10 +351,10 @@ button {
 .topic-card {
   position: relative;
   min-width: 0;
-  min-height: clamp(27rem, 60svh, 34rem);
+  min-height: clamp(24rem, 56svh, 31rem);
   display: grid;
   align-content: space-between;
-  gap: 1.1rem;
+  gap: 0.9rem;
   padding: 1.35rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -417,7 +407,7 @@ button {
 
 .topic-card__content {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.65rem;
   max-width: 20rem;
 }
 
@@ -426,11 +416,7 @@ button {
 }
 
 .topic-card__aside {
-  display: grid;
-  gap: 0.55rem;
-  max-width: 24rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--line);
+  max-width: 22rem;
 }
 
 .topic-card__headline {
@@ -439,10 +425,6 @@ button {
   font-size: clamp(1.22rem, 3.9vw, 1.72rem);
   line-height: 1.14;
   color: var(--charcoal);
-}
-
-.topic-card__body {
-  max-width: 22rem;
 }
 
 .topics-footer {
@@ -512,7 +494,7 @@ button {
 }
 
 .sample-stage {
-  padding-block: 1.4rem;
+  padding-block: 1.15rem;
   border-block: 1px solid var(--line-strong);
 }
 
@@ -559,7 +541,7 @@ button {
 }
 
 .cta-stage {
-  padding-block: 1.4rem;
+  padding-block: 1.15rem;
   border-block: 1px solid var(--line-strong);
 }
 
@@ -734,7 +716,6 @@ button {
     max-width: 30rem;
   }
 
-  .intro-layout,
   .sample-layout,
   .cta-layout {
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
@@ -742,7 +723,17 @@ button {
     align-items: end;
   }
 
-  .support-story {
+  .support-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+
+  .support-strip__item {
+    padding: 0;
+    border-top: 0;
+  }
+
+  .support-strip__item + .support-strip__item {
     padding-left: 1.5rem;
     border-left: 1px solid var(--line);
   }
@@ -754,10 +745,6 @@ button {
 
   .topic-card {
     padding: 1.6rem;
-  }
-
-  .topic-card__body {
-    max-width: 26rem;
   }
 
   .subscribe-form__row {
@@ -818,7 +805,7 @@ button {
   }
 
   .topic-card {
-    min-height: 32rem;
+    min-height: 30rem;
     padding: 1.9rem;
   }
 
